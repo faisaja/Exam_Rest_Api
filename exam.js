@@ -16,53 +16,54 @@ app.use(bodyParser.urlencoded({extended: true}))
 // penggunaan cors agar end point dapat diakses oleh cross platform
 app.use(cors())
 
-app.get("/hitung/:satuan/:data", (req, res) => {
+app.post("/hitung/:satuan/:data", (req, res) => {
     const satuan = req.params.satuan;
     const data = req.params.data;
     let result;
     const results = {};
     const sp = {
-      kg: 1,
-      hg: 10,
-      dag: 100,
-      g: 1000,
-      dg: 1000,
-      cg: 10000,
-      mg: 100000
-    };  
+        kg: 1,
+        hg: 10,
+        dag: 100,
+        g: 1000,
+        dg: 1000,
+        cg: 10000,
+        mg: 100000
+    };
 
     if (satuan == "kg") {
         result = data / 1000000;
-      }
-      else if (satuan == "hg") {
+    }
+    else if (satuan == "hg") {
         result = data / 100000;
-      }
-      else if (satuan == "dag") {
+    }
+    else if (satuan == "dag") {
         result = data / 10000;
-      }
-      else if (satuan == "g") {
+    }
+    else if (satuan == "g") {
         result = data / 1000;
-      }
-      else if (satuan == "dg") {
+    }
+    else if (satuan == "dg") {
         result = data / 100;
-      }
-      else if (satuan == "cg") {
+    }
+    else if (satuan == "cg") {
         result = data / 10;
-      }
-      else{
+    }
+    else {
         result = data
-      }
-    
-      for (const p in sp) {
+    }
+
+    for (const p in sp) {
         results[p] = result * sp[p];
-      }
-      let response = {
+    }
+    let response = {
         status: res.statusCode,
         hasil: results
-      };
-    
-      res.json(response);
-    });
+    };
+
+    res.json(response);
+});
+
 
 app.get("/berat/:nilai", (req,res) => 
 {
